@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects (Vercel equivalent is in vercel.json).
+# /hello-world/ was a junk WordPress post — it must 301 to the homepage.
+/hello-world/ / 301
+/hello-world / 301

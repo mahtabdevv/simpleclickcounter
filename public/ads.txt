@@ -1,0 +1,3 @@
+# ads.txt — placeholder. No AdSense publisher ID yet.
+# Add the AdSense line here only after AdSense approval:
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
