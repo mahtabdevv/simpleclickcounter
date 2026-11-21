@@ -1,103 +1,61 @@
+import Link from "next/link";
 import { MultiCounter } from "../../components/tools";
-import { ToolHub, Faq, UseCases } from "../../components/shared";
+import { ToolPage, Faq, UseCases, Steps } from "../../components/shared";
 import { pageMeta } from "../../lib/meta";
 
 export const metadata = pageMeta("/multi-counter/");
 
 const CASES = [
-  {
-    emoji: "📦",
-    title: "Inventory — several items at once",
-    text: "Count boxes, bottles and bags in one pass with the multi counter. Name one counter per item and count them side by side.",
-  },
-  {
-    emoji: "🏫",
-    title: "Attendance by group",
-    text: "Count adults and children, or boys and girls, on separate counters. The multi counter shows the total across all counters too.",
-  },
-  {
-    emoji: "🗳️",
-    title: "Votes for several options",
-    text: "Run one counter per option in a vote. Multiple counters online make it easy to compare options as votes come in.",
-  },
-  {
-    emoji: "🏋️",
-    title: "Workouts — several exercises",
-    text: "Track reps for several exercises at once with the multi counter, instead of juggling one click counter per exercise.",
-  },
+  { icon: "stock", title: "Inventory in one pass", text: "One counter per product — boxes, bottles, bags. Count the whole shelf without starting over." },
+  { icon: "people", title: "Attendance by group", text: "Adults and children, members and guests. See each group and the grand total together." },
+  { icon: "vote", title: "Votes with several options", text: "One counter per option. The totals sit side by side so the leader is obvious." },
+  { icon: "reps", title: "Multi-exercise workouts", text: "Push-ups, squats, pull-ups. Track each exercise without juggling three tabs." },
 ];
 
 export default function MultiCounterPage() {
   return (
-    <>
-      <h1>Free Multi Counter Online</h1>
-      <p className="lede">
-        This free multi counter runs several named counters at once — for
-        inventory, attendance, votes or workouts. No sign-up, and all your
-        counters are saved in your browser. It is a multiple counter app
-        that runs in your browser.
-      </p>
-
-      <MultiCounter />
-
-      <p>
-        A multi counter is for the jobs where one click counter is not enough.
-        Counting several things at the same time — adults and children at an
-        event, three products on a shelf, four options in a vote — needs
-        multiple counters online in one place, each with its own name and its
-        own total. Add a counter, name it, and tap +1. The total across all
-        counters is shown at the bottom.
-      </p>
+    <ToolPage
+      current="/multi-counter/"
+      title="Free Multi Counter Online"
+      lede="Run as many named counters as you need on one screen, with a live grand total. Made for stock, headcounts, votes and workouts."
+      points={[
+        "Name every counter — “Adults”, “Boxes”, “Option A”",
+        "Grand total across all counters, always visible",
+        "Reset or delete a single counter without touching the rest",
+        "Every counter is saved on this device",
+      ]}
+      tool={<MultiCounter />}
+    >
+      <h2>How to use the multi counter</h2>
+      <Steps
+        items={[
+          { t: "Name your counters", d: "Rename the two starters, or type a name in the box and tap “Add counter”." },
+          { t: "Tap + 1 to count", d: "Each counter has its own buttons. Use − to correct a slip." },
+          { t: "Watch the total", d: "The grand total at the top adds up every counter as you go." },
+          { t: "Tidy up", d: "Reset a single counter with the circular arrow, or remove it with the bin." },
+        ]}
+      />
 
       <UseCases cases={CASES} />
 
-      <h2>How to use the multi counter</h2>
-      <ol>
-        <li>Type a name — for example “Adults” — and tap “Add counter”.</li>
-        <li>Tap +1 on a counter to count it, −1 to correct a mistake.</li>
-        <li>Reset one counter, or delete it when you are done with it.</li>
-        <li>
-          All counters are saved in your browser, so your multiple counters
-          are still there when you come back.
-        </li>
-      </ol>
+      <h2>One counter or many?</h2>
       <p>
-        Counting just one thing? The <a href="/">click counter</a> is faster.
-        Counting with tally marks? Use the{" "}
-        <a href="/tally-counter/">tally counter</a>. Keeping score in a game?
-        Use the <a href="/score-counter/">score counter</a>.
+        Counting just one thing? The <Link href="/">click counter</Link> has a
+        bigger button and keyboard shortcuts. Need others to check your
+        count? The <Link href="/tally-counter/">tally counter</Link> shows it
+        as tally marks. Two players and a winner? Use the{" "}
+        <Link href="/score-counter/">score counter</Link>.
       </p>
 
       <Faq
         items={[
-          {
-            q: "Is this multi counter free?",
-            a: "Yes. This multi counter is free, with no sign-up and no download.",
-          },
-          {
-            q: "How many counters can I add to the multi counter?",
-            a: "As many as you need. Each counter has its own name and total, and the multi counter shows the combined total at the bottom.",
-          },
-          {
-            q: "Are my counters saved?",
-            a: "Yes. The multi counter saves every counter and its count in your browser, so they are still there when you return.",
-          },
-          {
-            q: "When should I use a multi counter instead of a click counter?",
-            a: "Use a multi counter when you count several things at the same time — for example adults and children, or three products. Use a click counter when you count one thing only.",
-          },
-          {
-            q: "Is this a multiple counter app?",
-            a: "Yes. This is a multiple counter app — add a counter, name it, and tap +1. It runs multiple counters online in one place, each with its own name and total.",
-          },
-          {
-            q: "Can I use it as a multiple tally counter online?",
-            a: "Yes. Name one counter per tally option and count them side by side — it works as a multiple tally counter online for votes, stock and attendance. You can run an online tally counter multiple people can use at once, one counter per person.",
-          },
+          { q: "Is this multi counter free?", a: "Yes. It is free with no sign-up and no download." },
+          { q: "How many counters can I add?", a: "As many as you need. Each has its own name and total, and the grand total is shown at the top." },
+          { q: "Are my counters saved?", a: "Yes. Names and counts are saved in your browser, so they are still there when you return on the same device." },
+          { q: "Can I use it as a multiple tally counter for a vote?", a: "Yes. Create one counter per option and tap as votes come in. The totals sit side by side so you can compare them instantly." },
+          { q: "When should I use a single click counter instead?", a: "When you are counting only one thing and want the biggest possible button, keyboard shortcuts, a goal bar and CSV export." },
         ]}
       />
-
-      <ToolHub current="/multi-counter/" />
-    </>
+    </ToolPage>
   );
 }

@@ -1,11 +1,12 @@
-import { ToolHub, Faq } from "../../components/shared";
+import { Faq, ToolRail } from "../../components/shared";
 import { pageMeta } from "../../lib/meta";
 
 export const metadata = pageMeta("/click-counter-vs-tally-counter/");
 
 export default function ComparePage() {
   return (
-    <>
+    <div className="page-body page-body--flush">
+      <article className="prose">
       <h1>Click Counter vs Tally Counter – Which to Use?</h1>
       <p className="lede">
         A click counter and a tally counter both count things — but they show
@@ -117,7 +118,8 @@ export default function ComparePage() {
         ]}
       />
 
-      <ToolHub current="/click-counter-vs-tally-counter/" />
-    </>
+      </article>
+      <ToolRail current="/click-counter-vs-tally-counter/" />
+    </div>
   );
 }

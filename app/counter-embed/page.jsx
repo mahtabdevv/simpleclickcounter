@@ -1,31 +1,30 @@
 import { EmbedSnippet } from "../../components/tools";
-import { ToolHub, Faq } from "../../components/shared";
+import { ToolPage, Faq, Steps } from "../../components/shared";
 import { pageMeta } from "../../lib/meta";
 
 export const metadata = pageMeta("/counter-embed/");
 
 export default function EmbedPage() {
   return (
-    <>
-      <h1>Embed a Click Counter on Your Website – Free</h1>
-      <p className="lede">
-        Embed a free click counter on your website in minutes — no sign-up,
-        no code skills needed. Copy the code below, paste it into your page,
-        and your visitors get a working click counter.
-      </p>
-
-      <EmbedSnippet />
-
+    <ToolPage
+      current="/counter-embed/"
+      title="Embed a Click Counter on Your Website – Free"
+      lede="Copy one line of code, paste it into your page, and your visitors get a working click counter. No sign-up, no coding."
+      points={[
+        "Works in WordPress, Wix, Squarespace, Webflow and plain HTML",
+        "Adds no scripts or tracking to your own site",
+        "Each visitor’s count is saved in their own browser",
+      ]}
+      tool={<EmbedSnippet />}
+    >
       <h2>How to embed a click counter</h2>
-      <ol>
-        <li>Copy the embed code above.</li>
-        <li>
-          Paste it into your website where you want the click counter to
-          appear — most website builders have an “embed” or “HTML” block for
-          this.
-        </li>
-        <li>Publish the page. The click counter appears and works right away.</li>
-      </ol>
+      <Steps
+        items={[
+          { t: "Copy the code", d: "Tap “Copy embed code” — it is one short iframe tag." },
+          { t: "Add an HTML or Embed block", d: "Most site builders call it “Custom HTML”, “Embed” or “Code”." },
+          { t: "Paste and publish", d: "The counter appears and works straight away. Change height=\"420\" if you need it taller." },
+        ]}
+      />
 
       <h2>Where an embedded click counter helps</h2>
       <ul>
@@ -75,7 +74,6 @@ export default function EmbedPage() {
         ]}
       />
 
-      <ToolHub current="/counter-embed/" />
-    </>
+    </ToolPage>
   );
 }

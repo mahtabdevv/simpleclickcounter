@@ -1,18 +1,20 @@
 import "./globals.css";
 import Link from "next/link";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Instrument_Sans, Bricolage_Grotesque } from "next/font/google";
 import { SITE_URL } from "../lib/meta";
+import SiteNav from "../components/SiteNav";
+import { TOOLS, GUIDES } from "../components/shared";
 
-const inter = Inter({
+const ui = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-ui-face",
   display: "swap",
 });
-const display = Space_Grotesk({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-display-face",
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: ["500", "700", "800"],
 });
 
 export const metadata = {
@@ -26,28 +28,13 @@ export const metadata = {
   },
 };
 
-const NAV = [
-  { href: "/", label: "Click Counter" },
-  { href: "/tally-counter/", label: "Tally Counter" },
-  { href: "/word-counter/", label: "Word Counter" },
-  { href: "/countdown-timer/", label: "Countdown Timer" },
-  { href: "/score-counter/", label: "Score Counter" },
-  { href: "/multi-counter/", label: "Multi Counter" },
-];
-
-const TOOLS = [
-  { href: "/tally-counter/", label: "Tally Counter" },
-  { href: "/word-counter/", label: "Word Counter" },
-  { href: "/countdown-timer/", label: "Countdown Timer" },
-  { href: "/score-counter/", label: "Score Counter" },
-  { href: "/multi-counter/", label: "Multi Counter" },
-];
-
 function Brand({ light = false }) {
   return (
     <Link href="/" className={light ? "brand brand--light" : "brand"}>
       <span className="brand-mark" aria-hidden="true">
-        1
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
+          <path d="M6 5v14M10 5v14M14 5v14M18 5v14M3.5 16.5 20.5 7.5" />
+        </svg>
       </span>
       <span className="brand-word">
         Simple<span>ClickCounter</span>
@@ -58,21 +45,12 @@ function Brand({ light = false }) {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${display.variable}`}>
+    <html lang="en" className={`${ui.variable} ${display.variable}`}>
       <body>
         <header className="site-header">
           <div className="header-inner">
             <Brand />
-            <nav className="main-nav" aria-label="Tools">
-              {NAV.map((n) => (
-                <Link key={n.href} href={n.href}>
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
-            <Link href="/" className="header-cta">
-              Start Counting
-            </Link>
+            <SiteNav />
           </div>
         </header>
         <main className="wrap">{children}</main>
@@ -82,13 +60,13 @@ export default function RootLayout({ children }) {
               <div className="footer-brand">
                 <Brand light />
                 <p>
-                  Free online counting tools. Free, no sign-up, nothing
-                  uploaded. Your counts are saved in your own browser only.
+                  Fast, free counting tools that open instantly on any phone
+                  or laptop. No account, no app to install — and your counts
+                  never leave your browser.
                 </p>
               </div>
               <nav aria-label="Tools">
                 <p className="footer-heading">Tools</p>
-                <Link href="/">Click Counter</Link>
                 {TOOLS.map((t) => (
                   <Link key={t.href} href={t.href}>
                     {t.label}
@@ -97,10 +75,11 @@ export default function RootLayout({ children }) {
               </nav>
               <nav aria-label="Learn and compare">
                 <p className="footer-heading">Learn &amp; Compare</p>
-                <Link href="/click-counter-vs-tally-counter/">
-                  Click Counter vs Tally Counter
-                </Link>
-                <Link href="/counter-embed/">Embed a Click Counter</Link>
+                {GUIDES.map((g) => (
+                  <Link key={g.href} href={g.href}>
+                    {g.label}
+                  </Link>
+                ))}
               </nav>
               <nav aria-label="Company and legal">
                 <p className="footer-heading">Company &amp; Legal</p>
@@ -116,19 +95,13 @@ export default function RootLayout({ children }) {
             </div>
             <div className="footer-bottom">
               <p>
-                © {new Date().getFullYear()} Simple Click Counter. All tools
-                run entirely in your browser.
+                © {new Date().getFullYear()} Simple Click Counter. Every tool
+                runs entirely in your browser.
               </p>
-              <p>Free, no sign-up.</p>
+              <p>Free · No sign-up · Private by design</p>
             </div>
           </div>
         </footer>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){var p=location.pathname.replace(/\\/$/,'')||'/';var l=document.querySelectorAll('.main-nav a');for(var i=0;i<l.length;i++){var h=l[i].getAttribute('href').replace(/\\/$/,'')||'/';if(h===p){l[i].classList.add('active');l[i].setAttribute('aria-current','page');}}})();",
-          }}
-        />
       </body>
     </html>
   );

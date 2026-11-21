@@ -1,107 +1,69 @@
+import Link from "next/link";
 import { WordCounter } from "../../components/tools";
-import { ToolHub, Faq, UseCases } from "../../components/shared";
+import { ToolPage, Faq, UseCases } from "../../components/shared";
 import { pageMeta } from "../../lib/meta";
 
 export const metadata = pageMeta("/word-counter/");
 
 const CASES = [
-  {
-    emoji: "✍️",
-    title: "Essays and assignments",
-    text: "Check your word count before you submit. This word counter shows words, characters and sentences as you type.",
-  },
-  {
-    emoji: "📝",
-    title: "Social media posts",
-    text: "Keep posts under a character limit. The word counter shows characters with and without spaces, so you always know where you stand.",
-  },
-  {
-    emoji: "📄",
-    title: "Reports and articles",
-    text: "Track the length of a report or article and estimate reading time at about 200 words per minute.",
-  },
-  {
-    emoji: "💬",
-    title: "Emails and messages",
-    text: "Paste a draft into the word counter to see its length before you send it.",
-  },
+  { icon: "write", title: "Essays and assignments", text: "Hit the word limit before you submit, not after. Paste the draft and trim until the number is right." },
+  { icon: "social", title: "Posts with a character limit", text: "Check characters with and without spaces, so you know exactly how a platform will count them." },
+  { icon: "study", title: "Articles and reports", text: "Watch length and reading time together. Most readers manage about 200 words a minute." },
+  { icon: "calls", title: "Emails and scripts", text: "Keep a cold email short, or time a speech: 130 words is roughly a minute spoken aloud." },
 ];
 
 export default function WordCounterPage() {
   return (
-    <>
-      <h1>Free Word Counter Online</h1>
-      <p className="lede">
-        This free word counter counts words, characters and sentences
-        instantly as you type. No sign-up, nothing uploaded — your text stays
-        in your browser.
-      </p>
+    <ToolPage
+      current="/word-counter/"
+      title="Free Word Counter Online"
+      lede="Paste or type your text and see words, characters, sentences and reading time update with every keystroke."
+      points={[
+        "Characters counted with and without spaces",
+        "Sentences, paragraphs and reading time included",
+        "Nothing is uploaded — your text stays on this device",
+        "Your draft is kept if you close the tab by mistake",
+      ]}
+      tool={<WordCounter />}
+    >
+      <h2>Exactly what gets counted</h2>
+      <div className="table-wrap"><table>
+        <thead><tr><th>Number</th><th>How it is worked out</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Words</strong></td><td>Anything separated by spaces or line breaks. Extra spaces never add words.</td></tr>
+          <tr><td><strong>Characters</strong></td><td>Every letter, number, space and punctuation mark.</td></tr>
+          <tr><td><strong>No spaces</strong></td><td>The same, minus spaces and line breaks.</td></tr>
+          <tr><td><strong>Sentences</strong></td><td>Text that ends in a full stop, question mark or exclamation mark.</td></tr>
+          <tr><td><strong>Paragraphs</strong></td><td>Blocks of text separated by a line break.</td></tr>
+          <tr><td><strong>Reading time</strong></td><td>Words ÷ 200, rounded up to the next minute.</td></tr>
+        </tbody>
+      </table></div>
 
-      <WordCounter />
+      <UseCases cases={CASES} title="When length matters" />
 
+      <h2>Private by default</h2>
       <p>
-        A word counter is useful whenever length matters: essays with a word
-        limit, posts with a character limit, or articles you want to keep
-        tight. Paste your text above and the word counter updates with every
-        keystroke — words, characters with spaces, characters without spaces,
-        sentences, paragraphs and an estimated reading time.
+        Many online word counters send your text to a server. This one
+        doesn’t. Counting happens in your browser, and the draft is kept only
+        in this browser’s storage so a closed tab doesn’t cost you your work.
+        Press <strong>Clear text</strong> and it is gone.
       </p>
-
-      <UseCases cases={CASES} />
-
-      <h2>How the word counter counts</h2>
-      <ul>
-        <li>
-          <strong>Words</strong> — text split on spaces. “Hello world” is 2
-          words.
-        </li>
-        <li>
-          <strong>Characters</strong> — every letter, number, space and
-          punctuation mark.
-        </li>
-        <li>
-          <strong>Characters (no spaces)</strong> — the same count with spaces
-          removed, which is what most character limits use.
-        </li>
-        <li>
-          <strong>Sentences</strong> — text ending in a full stop, question
-          mark or exclamation mark.
-        </li>
-        <li>
-          <strong>Reading time</strong> — words divided by 200 words per
-          minute, rounded up.
-        </li>
-      </ul>
       <p>
-        Need to count something else? The{" "}
-        <a href="/">click counter</a> counts taps, the{" "}
-        <a href="/tally-counter/">tally counter</a> counts with tally marks,
-        and the <a href="/multi-counter/">multi counter</a> counts several
-        things at once.
+        Need to count something other than words? Try the{" "}
+        <Link href="/">click counter</Link> for taps or the{" "}
+        <Link href="/countdown-timer/">countdown timer</Link> for timed writing
+        sprints.
       </p>
 
       <Faq
         items={[
-          {
-            q: "Is this word counter free?",
-            a: "Yes. This word counter is free, with no sign-up and no download.",
-          },
-          {
-            q: "Is my text uploaded anywhere?",
-            a: "No. The word counter runs entirely in your browser. Nothing you type or paste is uploaded or stored on a server.",
-          },
-          {
-            q: "How does the word counter count words?",
-            a: "Words are counted by splitting your text on spaces. Extra spaces and blank lines do not create extra words.",
-          },
-          {
-            q: "Does the word counter count characters without spaces?",
-            a: "Yes — it shows both totals: characters with spaces and characters without spaces.",
-          },
+          { q: "Is this word counter free?", a: "Yes. It is free with no sign-up and no limit on text length." },
+          { q: "Is my text uploaded anywhere?", a: "No. Everything is counted in your browser. Nothing you type or paste is sent to a server." },
+          { q: "How are words counted?", a: "Text is split on spaces and line breaks. Hyphenated words such as “well-known” count as one word, and extra spaces never add to the count." },
+          { q: "Does it count characters without spaces?", a: "Yes. You get both totals — with spaces and without — because platforms and assignments use different rules." },
+          { q: "How is reading time calculated?", a: "Your word count divided by 200 words per minute, a typical silent reading speed, rounded up." },
         ]}
       />
-
-      <ToolHub current="/word-counter/" />
-    </>
+    </ToolPage>
   );
 }
