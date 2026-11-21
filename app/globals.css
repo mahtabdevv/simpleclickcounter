@@ -320,13 +320,42 @@ kbd {
 }
 
 /* ============================================================
-   TOOL PAGE SHELL — intro + tool side by side on laptops,
-   tool directly under a short intro on phones.
+   TOOL PAGE SHELL — the hero is the tool, edge to edge of the
+   content width. A compact H1 names it (kept for search); the
+   intro and selling points live in the section below.
    ============================================================ */
-.tool-hero {
+.tool-hero { display: flex; flex-direction: column; }
+.tool-hero h1 {
+  max-width: none;
+  margin: 0 0 var(--s-4);
+  text-align: center;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  letter-spacing: -0.03em;
+}
+.tool-hero .tool-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* Column flex + auto margins would shrink-wrap these; keep them full width */
+.tool-card > .primary-row, .tool-card > .goal { width: 100%; }
+.tool-about {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--s-6);
+  margin-top: var(--s-12);
+  padding-bottom: var(--s-10);
+  border-bottom: 1px solid var(--line);
+}
+.tool-about .lede {
+  margin: 0;
+  max-width: 30ch;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 1rem + 1.2vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
 .points {
   list-style: none;
@@ -357,12 +386,21 @@ kbd {
 .keys { font-size: var(--t-14); color: var(--muted); margin: 0; }
 
 @media (min-width: 1000px) {
-  .tool-hero {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--s-16);
-    align-items: center;
-    min-height: min(640px, calc(100svh - var(--header-h) - var(--s-20)));
+  /* Tool fills the first screen on laptops */
+  .tool-hero .tool-card {
+    min-height: max(520px, calc(100svh - var(--header-h) - 7.5rem));
+    padding: var(--s-8) var(--s-12);
   }
+  .tool-about { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s-16); align-items: start; }
+  .tool-hero .count-display { font-size: clamp(6rem, 13vw, 11rem); }
+  .tool-hero .count-display.digits-3 { font-size: clamp(5.5rem, 11vw, 10rem); }
+  .tool-hero .count-display.digits-4 { font-size: clamp(5rem, 10vw, 9rem); }
+  .tool-hero .count-display--sm { font-size: clamp(3.5rem, 6vw, 5rem); }
+  .tool-hero .primary-row { max-width: 640px; }
+  .tool-hero .btn.big { min-height: 88px; font-size: var(--t-30); }
+  .tool-hero .primary-row > .btn.minus { width: 88px; min-height: 88px; }
+  .tool-hero .goal { max-width: 640px; }
+  .tool-about .points { margin-top: var(--s-2); }
 }
 
 .page-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-12); margin-top: var(--s-8); }
@@ -958,15 +996,7 @@ tbody tr:hover td { background: var(--paper); }
   .menu-btn { display: inline-flex; }
 }
 @media (max-width: 999px) {
-  /* Phone/tablet order: title, short lede, TOOL, then the selling points */
-  .tool-intro { display: contents; }
-  .tool-hero { gap: 0; }
-  .tool-hero h1 { order: 1; }
-  .tool-hero .lede { order: 2; margin-bottom: var(--s-5); }
-  .tool-slot { order: 3; }
-  .tool-hero .points { order: 4; margin: var(--s-8) 0 0; }
-  .tool-hero .keys { order: 5; margin-top: var(--s-3); }
-  .tool-slot .tool-card { max-width: 680px; }
+  .tool-about { margin-top: var(--s-10); }
 }
 @media (max-width: 720px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-8) var(--s-6); }
@@ -981,7 +1011,7 @@ tbody tr:hover td { background: var(--paper); }
   main.wrap { padding-top: var(--s-5); padding-bottom: var(--s-16); }
   main h1 { font-size: clamp(1.75rem, 7.4vw, 2.1rem); margin-bottom: var(--s-2); }
   .lede { font-size: var(--t-16); line-height: 1.5; }
-  .tool-hero .lede { margin-bottom: var(--s-4); }
+  .tool-hero h1 { font-size: var(--t-20); margin-bottom: var(--s-3); }
   h2 { margin-top: var(--s-12); }
   .tool-card { margin: 0 calc(-1 * var(--s-2)); padding: var(--s-4) var(--s-4) var(--s-5); border-radius: var(--r-lg); }
   .count-display { margin: var(--s-2) 0 var(--s-3); }

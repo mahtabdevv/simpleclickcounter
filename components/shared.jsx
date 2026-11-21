@@ -50,14 +50,17 @@ export function Icon({ name, size = 22 }) {
   );
 }
 
-/* ---------- Page shell: intro + tool side by side on laptops ---------- */
+/* ---------- Page shell: tool fills the hero, intro follows ---------- */
 export function ToolPage({ title, lede, points = [], keys, tool, children, current }) {
   return (
     <>
       <section className="tool-hero">
-        <div className="tool-intro">
-          <h1>{title}</h1>
-          <p className="lede">{lede}</p>
+        <h1>{title}</h1>
+        <div className="tool-slot">{tool}</div>
+      </section>
+      <section className="tool-about" aria-label="About this tool">
+        <p className="lede">{lede}</p>
+        <div>
           {points.length > 0 && (
             <ul className="points">
               {points.map((p) => (
@@ -67,7 +70,6 @@ export function ToolPage({ title, lede, points = [], keys, tool, children, curre
           )}
           {keys && <p className="keys">{keys}</p>}
         </div>
-        <div className="tool-slot">{tool}</div>
       </section>
       <div className="page-body">
         <article className="prose">{children}</article>
